@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+int findWays(int num_dice, int num_sides, int target) {
+    int dp[num_dice + 1][target + 1];
+    memset(dp, 0, sizeof(dp));
+
+    for (int j = 1; j <= num_sides && j <= target; j++) {
+        dp[1][j] = 1;
+    }
+
+    for (int i = 2; i <= num_dice; i++) {
+        for (int j = 1; j <= target; j++) {
+            for (int k = 1; k < num_sides && k < j; k++) {
+                dp[i][j] += dp[i - 1][j - k];
+            }
+        }
+    }
+
+    return dp[num_dice][target];
+}
+
+int main() {
+    int num_dice = 3;
+    int num_sides = 6;
+    int target = 8;
+
+    printf("Number of ways to get the target sum: %d\n", findWays(num_dice, num_sides, target));
+
+    return 0;
+}
