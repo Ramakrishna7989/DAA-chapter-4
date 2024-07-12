@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void printJustifiedText(char **words, int wordsSize, int maxWidth) {
+    int i = 0;
+    while (i < wordsSize) {
+        int j = i, len = 0;
+        while (j < wordsSize && len + strlen(words[j]) + j - i <= maxWidth) {
+            len += strlen(words[j]);
+            j++;
+        }
+
+        int spaces = maxWidth - len;
+        int numGaps = j - i - 1 == 0 ? 1 : j - i - 1;
+        int spacesBetweenWords = numGaps == 0 ? spaces : spaces / numGaps;
+        int extraSpaces = numGaps == 0 ? 0 : spaces % numGaps;
+
+        for (int k = i; k < j; k++) {
+            printf("%s", words[k]);
+            if (k < j - 1) {
+                for (int s = 0; s < spacesBetweenWords; s++) {
+                    printf(" ");
+                }
+                if (extraSpaces > 0) {
+                    printf(" ");
+                    extraSpaces--;
+                }
+            }
+        }
+        printf("\n");
+
+        i = j;
+    }
+}
+
+int main() {
+    char *words[] = {"This", "is", "an", "example", "of", "text", "justification"};
+    int wordsSize = 7;
+    int maxWidth = 16;
+
+    printJustifiedText(words, wordsSize, maxWidth);
+
+    return 0;
+}
