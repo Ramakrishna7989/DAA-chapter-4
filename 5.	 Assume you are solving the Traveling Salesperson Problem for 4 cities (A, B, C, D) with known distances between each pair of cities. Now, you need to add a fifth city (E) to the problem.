@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+#define N 5
+
+int distances[N][N] = {
+    {0, 10, 15, 20, 25},
+    {10, 0, 35, 25, 30},
+    {15, 35, 0, 30, 45},
+    {20, 25, 30, 0, 40},
+    {25, 30, 45, 40, 0}
+};
+
+int main() {
+    // Your code here
+    return 0;
+}
